@@ -10,6 +10,6 @@ describe('some things', () => {
 
     it('can add 2 numbers', () => {
 
-        expect(add(10, 2)).toBe(12)
+        expect(add(10, 2)).toBe(12) //comment later
     })
 }); 
