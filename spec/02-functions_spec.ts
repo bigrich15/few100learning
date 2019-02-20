@@ -98,5 +98,45 @@ describe('functions', () => {
 
     });
 
-    
-});
+    describe('some lodash goodness', () => {
+        it('supports memoization', () => {
+            function doSomeHardWork() {
+                console.log('Doing Hard Work Here!');
+                return 'Work Is Done!';
+            }
+
+            const memoized = _.memoize(doSomeHardWork);
+
+            expect(memoized()).toBe('Work Is Done!');
+            expect(memoized()).toBe('Work Is Done!');
+            expect(memoized()).toBe('Work Is Done!');
+            expect(memoized()).toBe('Work Is Done!');
+            expect(memoized()).toBe('Work Is Done!');
+            expect(memoized()).toBe('Work Is Done!');
+            expect(memoized()).toBe('Work Is Done!');
+            expect(memoized()).toBe('Work Is Done!');
+        });
+        it('currying', () => {
+            function makeElement(tag: string, content: string) {
+                return `<${tag}>${content}</${tag}>`;
+            }
+
+            const curriedTagMaker = _.curry(makeElement);
+
+            const h1Maker = curriedTagMaker('h1');
+            const pMaker = curriedTagMaker('p');
+
+            expect(h1Maker('Hello')).toBe('<h1>Hello</h1>');
+            expect(pMaker('see you tomorrow')).toBe('<p>see you tomorrow</p>');
+
+            function add(a: number, b: number, c: number) {
+                return a + b + c;
+            }
+
+            const curriedAdd = _.curry(add);
+
+            const f1 = curriedAdd(10, 5);
+            expect(f1(1)).toBe(16);
+
+        });
+    });
